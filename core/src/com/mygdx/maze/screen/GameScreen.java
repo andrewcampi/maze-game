@@ -3,6 +3,7 @@ package com.mygdx.maze.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.mygdx.maze.entity.EntityManager;
 import com.mygdx.maze.entity.EntityPlayer;
 import com.mygdx.maze.main.Driver;
@@ -34,12 +35,16 @@ public class GameScreen implements Screen
 
 	private GameUI ui;
 
+	private Music gameMusic;
+
 	public GameScreen()
 	{
 		this.initMaze();
 		this.initEntities();
 
 		this.ui = new GameUI(this);
+		gameMusic = Gdx.audio.newMusic(Gdx.files.internal("Scent of Scarlet (LOOP).wav"));
+		gameMusic.setLooping(true);
 	}
 
 	@Override
@@ -151,7 +156,7 @@ public class GameScreen implements Screen
 	@Override
 	public void show()
 	{
-
+		gameMusic.play();
 	}
 
 	@Override
