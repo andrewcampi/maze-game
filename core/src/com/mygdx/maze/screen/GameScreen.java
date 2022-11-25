@@ -160,7 +160,7 @@ public class GameScreen implements Screen
 	@Override
 	public void show()
 	{
-		gameMusic.play()
+		gameMusic.play();
 	}
 
 	@Override
