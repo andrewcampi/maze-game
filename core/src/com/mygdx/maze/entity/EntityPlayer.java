@@ -65,9 +65,6 @@ public class EntityPlayer extends Entity
 											global_settings.getPlayerCurrentYPosition(),
 											global_settings.getPlayerWidth(),
 											global_settings.getPlayerHeight());
-		if (Driver.shape.getBoundingRectangle().overlaps(maze.getBoundingRectangle()))	 {
-			System.out.println("Overlap!");
-		}
 		Driver.shape.end();
 
 	}
