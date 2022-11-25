@@ -35,6 +35,8 @@ public class GameScreen implements Screen
 
 	public GameUI ui;
 
+	private Music gameMusic;
+	
 	Settings global_settings = Settings.getInstance();
 
 	public GameScreen()
@@ -158,7 +160,7 @@ public class GameScreen implements Screen
 	@Override
 	public void show()
 	{
-
+		gameMusic.play()
 	}
 
 	@Override
