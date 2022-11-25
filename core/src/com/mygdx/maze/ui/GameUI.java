@@ -20,10 +20,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.mygdx.maze.main.Driver;
-import com.mygdx.maze.main.GameInfo;
+//import com.mygdx.maze.main.GameInfo;
 import com.mygdx.maze.maze.GenerationType;
 import com.mygdx.maze.maze.TileType;
 import com.mygdx.maze.screen.GameScreen;
+import com.mygdx.maze.Settings;
 
 public class GameUI extends Stage
 {
@@ -66,6 +67,8 @@ public class GameUI extends Stage
 
 	private TextButton generateButton;
 
+	Settings global_settings = Settings.getInstance();
+
 	public GameUI(final GameScreen screen)
 	{
 		this.screen = screen;
@@ -79,8 +82,8 @@ public class GameUI extends Stage
 
 		//Create UI Camera and Viewport
 		this.uiCamera = new OrthographicCamera();
-		this.uiViewport = new ExtendViewport(GameInfo.WORLD_WIDTH, GameInfo.WORLD_HEIGHT, this.uiCamera);
-		this.uiCamera.setToOrtho(false, GameInfo.WORLD_WIDTH, GameInfo.WORLD_HEIGHT);
+		this.uiViewport = new ExtendViewport(global_settings.getCameraZoomWidth(), global_settings.getCameraZoomHeight(), this.uiCamera);
+		this.uiCamera.setToOrtho(false, global_settings.getCameraZoomWidth(), global_settings.getCameraZoomHeight());
 
 		//Load UI Skin and Create Stage
 		this.skin = new Skin(Gdx.files.internal("ui/uiskin.json"));
@@ -90,7 +93,7 @@ public class GameUI extends Stage
 		this.table = new Table();
 		this.table.setPosition(100f, 75f);
 		this.table.setWidth(300); //300
-		this.table.setHeight(GameInfo.WORLD_HEIGHT - 150f);
+		this.table.setHeight(global_settings.getCameraZoomHeight() - 150f);
 		this.table.align(Align.top);
 		this.table.pad(10f);
 

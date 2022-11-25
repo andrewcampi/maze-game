@@ -17,25 +17,25 @@ import com.mygdx.maze.Settings;
 
 public class GameScreen implements Screen
 {
-	private MazeFactory factory;
+	public MazeFactory factory;
 
-	private Maze maze;
+	public Maze maze;
 
-	private TileType tileType;
+	public TileType tileType;
 
-	private GenerationType genType;
+	public GenerationType genType;
 
-	private int mazeHeight;
+	public int mazeHeight;
 
-	private int mazeWidth;
+	public int mazeWidth;
 
-	private EntityManager manager;
+	public EntityManager manager;
 
-	private EntityPlayer player;
+	public EntityPlayer player;
 
-	private GameUI ui;
+	public GameUI ui;
 
-	private Music gameMusic;
+	Settings global_settings = Settings.getInstance();
 
 	public GameScreen()
 	{
@@ -43,8 +43,10 @@ public class GameScreen implements Screen
 		this.initEntities();
 
 		this.ui = new GameUI(this);
+
 		gameMusic = Gdx.audio.newMusic(Gdx.files.internal("Scent of Scarlet (LOOP).wav"));
 		gameMusic.setLooping(true);
+
 	}
 
 	@Override
@@ -82,7 +84,7 @@ public class GameScreen implements Screen
 		}
 	}
 
-	private void initMaze()
+	public void initMaze()
 	{
 		this.factory = new MazeFactory();
 		this.maze = null;
@@ -90,12 +92,12 @@ public class GameScreen implements Screen
 		this.tileType = TileType.SQUARE;
 		this.genType = GenerationType.RECURSIVE_BACKTRACK;
 		// Final Project ---------------------
-		this.mazeWidth = Settings.mazeWidth;
-		this.mazeHeight = Settings.mazeHeight;
+		this.mazeWidth = global_settings.getMazeWidth();
+		this.mazeHeight = global_settings.getMazeHeight();
 		// -----------------------------------
 	}
 
-	private void initEntities()
+	public void initEntities()
 	{
 		this.manager = new EntityManager();
 		this.player = null;
@@ -118,7 +120,7 @@ public class GameScreen implements Screen
 		}
 	}
 
-	private void checkAndHandlePlayerWin()
+	public void checkAndHandlePlayerWin()
 	{
 		if(this.player.getTile().getRow() == this.maze.getExit().getRow()
 				&& this.player.getTile().getColumn() == this.maze.getExit().getColumn())
@@ -156,7 +158,7 @@ public class GameScreen implements Screen
 	@Override
 	public void show()
 	{
-		gameMusic.play();
+
 	}
 
 	@Override

@@ -7,11 +7,13 @@ public class MazeDrawerSquare extends MazeDrawer
 {
 	protected int tileSize;
 
+	Settings global_settings = Settings.getInstance();
+
 	public MazeDrawerSquare(Maze maze)
 	{
 		super(maze, 4);
 
-		this.tileSize = Settings.wallThickness; //24 original
+		this.tileSize = global_settings.getWallThickness(); //24 original
 
 	}
 

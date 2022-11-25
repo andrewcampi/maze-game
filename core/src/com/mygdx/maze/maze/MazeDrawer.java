@@ -48,6 +48,7 @@ public abstract class MazeDrawer
 	float radius;
 	int x_position;
 	int y_position;
+	Settings global_settings = Settings.getInstance();
 	//----------------------------
 
 	public MazeDrawer(Maze maze, int wallSize)
@@ -125,7 +126,7 @@ public abstract class MazeDrawer
 			Driver.shape.end();
 		}
     //Final Project --------------
-		radius = Settings.lightRadius;
+		radius = global_settings.getLightRadius();
 		world = new World(new Vector2(0,0),false);
 		rayHandler = new RayHandler(world);
 		new PointLight(rayHandler,500,Color.WHITE,radius,x_position,y_position);
