@@ -16,23 +16,60 @@ import com.mygdx.maze.Settings;
 
 public class EntityPlayer extends Entity
 {
+	Settings global_settings = Settings.getInstance();
 
 	public EntityPlayer(Maze maze, Tile tile)
 	{
 		super(maze, tile);
+		// Set starting position.
+		global_settings.setPlayerCurrentXPosition((maze.getEntrance().getRow() * global_settings.getWallThickness()) + (global_settings.getWallThickness()/2)); // Set player x position to be at maze enterance row to start
+		global_settings.setPlayerCurrentYPosition((maze.getEntrance().getColumn() * global_settings.getWallThickness() ) + (global_settings.getWallThickness()/2)); // Set player y position to be at maze enterance row to start
 	}
-
+	/*
 	@Override
 	public void update(float delta)
 	{
 		this.handlePlayerMovement();
 		this.trackPlayerMovement();
 	}
+	*/
+	@Override
+	public void update(float delta)
+	{
+		if(Gdx.input.isKeyPressed(Keys.W)) // NORTH MOVEMENT
+		{
+			global_settings.setPlayerCurrentYPosition(global_settings.getPlayerCurrentYPosition() - global_settings.getPlayerSpeed());
+		}
+		if(Gdx.input.isKeyPressed(Keys.A)) // EAST MOVEMENT
+		{
+			global_settings.setPlayerCurrentXPosition(global_settings.getPlayerCurrentXPosition() - global_settings.getPlayerSpeed());
+		}
+		if(Gdx.input.isKeyPressed(Keys.S)) // SOUTH MOVEMENT
+		{
+			global_settings.setPlayerCurrentYPosition(global_settings.getPlayerCurrentYPosition() + global_settings.getPlayerSpeed());
+		}
+		if(Gdx.input.isKeyPressed(Keys.D)) // WEST MOVEMENT
+		{
+			global_settings.setPlayerCurrentXPosition(global_settings.getPlayerCurrentXPosition() + global_settings.getPlayerSpeed());
+		}
+		Driver.camera.position.lerp(new Vector3((int) global_settings.getPlayerCurrentXPosition(), (int) global_settings.getPlayerCurrentYPosition(), 0), 0.15f);
+	}
 
 	@Override
 	public void render(float delta)
 	{
-		this.drawPlayer();
+		//this.drawPlayer();
+		Driver.shape.begin(ShapeType.Filled);
+		Driver.shape.setColor(this.maze.getDrawer().getPlayerColor());
+		Driver.shape.rect(global_settings.getPlayerCurrentXPosition(),
+											global_settings.getPlayerCurrentYPosition(),
+											global_settings.getPlayerWidth(),
+											global_settings.getPlayerHeight());
+		if (Driver.shape.getBoundingRectangle().overlaps(maze.getBoundingRectangle()))	 {
+			System.out.println("Overlap!");
+		}
+		Driver.shape.end();
+
 	}
 
 	private void handlePlayerMovement()
@@ -135,7 +172,7 @@ public class EntityPlayer extends Entity
 
 		Driver.camera.position.lerp(new Vector3((int) x, (int) y, 0), 0.15f);
 	}
-
+	/*
 	private void drawPlayer()
 	{
 		if(this.maze.getType() == TileType.SQUARE)
@@ -156,8 +193,8 @@ public class EntityPlayer extends Entity
 		Driver.shape.setColor(this.maze.getDrawer().getPlayerColor());
 		Driver.shape.rect(this.maze.getDrawer().getTileCenterX(this.tile.getRow(), this.tile.getColumn()) - drawer.getTileSize() / 6,
 				this.maze.getDrawer().getTileCenterY(this.tile.getRow(), this.tile.getColumn()) - drawer.getTileSize() / 6,
-				drawer.getTileSize() / Settings.playerWidth,
-				drawer.getTileSize() / Settings.playerHeight);
+				drawer.getTileSize() / playerWidth,
+				drawer.getTileSize() / playerHeight);
 		Driver.shape.end();
 	}
 
@@ -173,6 +210,7 @@ public class EntityPlayer extends Entity
 				drawer.getTileWidth() / 4);
 		Driver.shape.end();
 	}
+	*/
 
 	@Override
 	public void dispose()
